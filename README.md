@@ -16,6 +16,19 @@
 
 ---
 
+## 📸 Dashboard Preview
+
+### 1️⃣ Main Dashboard
+![Main Dashboard](assets/main_dashboard.png)
+
+### 2️⃣ Product Analysis
+![Product Analysis](assets/product_analysis.png)
+
+### 3️⃣ Individual Product
+![Individual Product](assets/individual_product.png)
+
+---
+
 ## 📌 Project Summary
 
 > Analyzed **113,000+ orders** across **6 years (2015–2020)** from Ghana's e-commerce market to uncover revenue patterns, customer behavior, product performance, and delivery inefficiencies — built as a 3-tab interactive Power BI dashboard with Amazon's signature dark theme.
@@ -156,7 +169,7 @@ CALCULATE(
     Orders[Status] = "Delivered"
 )
 
--- Unique Customers per Year
+-- Unique Customers
 Unique Customers = DISTINCTCOUNT(Orders[CustomerID])
 
 -- Fashion + Shipped from Abroad Sales
@@ -186,26 +199,26 @@ Delivery Days = DATEDIFF(Orders[OrderDate], Orders[Delivery Date], DAY)
 
 -- Customer Loyalty Tier
 Customer Category =
-IF(Orders[Total Revenue per Customer] >= 5000, "Platinum",
-IF(Orders[Total Revenue per Customer] >= 2000, "Gold",
-IF(Orders[Total Revenue per Customer] >= 500, "Silver", "Bronze")))
+IF(Orders[Revenue per Customer] >= 5000, "Platinum",
+IF(Orders[Revenue per Customer] >= 2000, "Gold",
+IF(Orders[Revenue per Customer] >= 500, "Silver", "Bronze")))
 ```
 
 ---
 
-## 🔍 Key Insights
+## 💡 Key Insights
 
 ### 1. Return Rate is a Description Problem
 > 27% of all orders are returned. The #1 reason is **"Description Mismatch"** — not delivery delays or defects. This is a product listing accuracy issue.
 
 ### 2. 2020 Was a Breakout Year
-> Unique customers jumped to **25,179 in 2020** — the highest in 6 years — indicating strong market growth, possibly pandemic-driven e-commerce adoption.
+> Unique customers jumped to **25,179 in 2020** — the highest in 6 years — indicating strong market growth.
 
 ### 3. Platinum Customers = Hidden Revenue Engine
-> Only **~3K Platinum customers** generate revenue comparable to **87K Bronze customers**. Retaining and upgrading high-value customers should be priority #1.
+> Only **~3K Platinum customers** generate revenue comparable to **87K Bronze customers**. Retaining high-value customers is priority #1.
 
 ### 4. Express Delivery = Higher Satisfaction
-> Express delivery customers rate higher on average. Standard delivery (10 days, same cost as Express) is causing dissatisfaction — pricing strategy needs review.
+> Express delivery = **3.5 days avg**. Standard delivery = **10 days**, same cost. Customers are dissatisfied — pricing strategy needs review.
 
 ### 5. Fashion + Shipped from Abroad = ₵4M Revenue
 > This niche cross-segment generates significant revenue and deserves targeted promotions.
@@ -221,14 +234,19 @@ amazon-ghana-ecommerce-analytics/
 │   └── Amazon_Ecommerce_Dashboard_Shivam_Gupta.pbix
 │
 ├── 🗄️ sql/
-│   └── queries.sql                        # 7 advanced SQL queries
+│   └── queries.sql
 │
 ├── 📂 data/
-│   └── Ecommerce Dataset.xlsx             # Raw dataset (Orders + Customers)
+│   └── Ecommerce Dataset.xlsx
 │
 ├── 📑 docs/
-│   ├── E-Commerce_Document_by_Shivam_Gupta.docx    # All Q&A answers
-│   └── E-COMMERCE_ANALYSIS_by_Shivam_Gupta.pptx   # Presentation slides
+│   ├── E-Commerce_Document_by_Shivam_Gupta.docx
+│   └── E-COMMERCE_ANALYSIS_by_Shivam_Gupta.pptx
+│
+├── 🖼️ assets/
+│   ├── main_dashboard.png
+│   ├── product_analysis.png
+│   └── individual_product.png
 │
 └── 📄 README.md
 ```
@@ -238,7 +256,7 @@ amazon-ghana-ecommerce-analytics/
 ## 🚀 How to Use
 
 ### View the Live Dashboard
-Click **[🔗 Live Dashboard](https://app.powerbi.com/YOUR_LINK_HERE)** — no login required (public view).
+Click **[🔗 Live Dashboard](https://app.powerbi.com/YOUR_LINK_HERE)** — no login required.
 
 ### Run Locally in Power BI Desktop
 1. Download `dashboard/Amazon_Ecommerce_Dashboard_Shivam_Gupta.pbix`
@@ -247,11 +265,10 @@ Click **[🔗 Live Dashboard](https://app.powerbi.com/YOUR_LINK_HERE)** — no l
 
 ### Explore the SQL Queries
 ```sql
--- Import dataset into MySQL first
 CREATE DATABASE amazon_ecommerce;
 USE amazon_ecommerce;
--- Then import via MySQL Workbench: Table Data Import Wizard
--- Run queries from sql/queries.sql
+-- Import via MySQL Workbench → Table Data Import Wizard
+-- Then run sql/queries.sql
 ```
 
 ---
@@ -260,11 +277,11 @@ USE amazon_ecommerce;
 
 | Priority | Area | Recommendation |
 |----------|------|----------------|
-| 🔴 High | Returns | Fix product descriptions — 27% return rate driven by mismatch |
-| 🔴 High | Customer Retention | Focus on converting Bronze → Silver with targeted discounts |
-| 🟡 Medium | Delivery | Differentiate pricing between Express (3.5 days) and Standard (10 days) |
-| 🟡 Medium | High-Value Customers | Retention program for 3K Platinum customers |
-| 🟢 Low | International | Promote Fashion + Shipped from Abroad segment (₵4M opportunity) |
+| 🔴 High | Returns | Fix product descriptions — 27% return rate from mismatch |
+| 🔴 High | Customers | Convert Bronze → Silver with targeted discounts |
+| 🟡 Medium | Delivery | Differentiate pricing: Express vs Standard (same cost, 3x speed difference) |
+| 🟡 Medium | High-Value | Retention program for 3K Platinum customers |
+| 🟢 Low | International | Promote Fashion + Shipped from Abroad (₵4M opportunity) |
 
 ---
 
