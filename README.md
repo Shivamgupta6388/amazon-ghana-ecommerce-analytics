@@ -18,9 +18,6 @@ This end-to-end analytics project transforms **1,13,000 raw e-commerce orders** 
 ---
 
 ## 🖥️ Live Dashboard
-
-🔗 **[View Interactive Dashboard on Power BI Service](#)** ← paste your published link here
-
 ---
 
 ## 📸 Dashboard Preview
