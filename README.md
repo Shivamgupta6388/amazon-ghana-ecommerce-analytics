@@ -1,304 +1,209 @@
-<div align="center">
-
-# 🛒 Amazon Ghana E-Commerce Analytics Dashboard
-
-### End-to-End Data Analytics Project | Power BI · SQL · DAX · Power Query
+# 🛒 Amazon E-Commerce Sales Analytics Dashboard
+### Power BI Capstone Project | Ghana Market (2015–2020)
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![DAX](https://img.shields.io/badge/DAX-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)
-![Power Query](https://img.shields.io/badge/Power%20Query-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
-
-**[🔗 Live Dashboard →](https://app.powerbi.com/YOUR_LINK_HERE)**&nbsp;&nbsp;&nbsp;
-**[📄 View Document →](docs/E-Commerce_Document_by_Shivam_Gupta.docx)**
-
-</div>
+![DAX](https://img.shields.io/badge/DAX-FF9900?style=for-the-badge&logo=microsoft&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 
 ---
 
-## 📸 Dashboard Preview
+## 📌 Project Overview
 
-### 1️⃣ Main Dashboard
-![Main Dashboard](assets/main_dashboard.png)
+This end-to-end analytics project transforms **1,13,000 raw e-commerce orders** (2015–2020) from Ghana's Amazon market into a fully interactive 3-tab Power BI dashboard. The goal: help business stakeholders answer 35+ real questions about revenue, customers, products, returns, and regional performance — and walk away with clear, data-backed recommendations.
 
-### 2️⃣ Product Analysis
-![Product Analysis](assets/product_analysis.png)
-
-### 3️⃣ Individual Product
-![Individual Product](assets/individual_product.png)
+> *"A 27% return rate that has nothing to do with delivery speed — it's a content problem disguised as a logistics problem."*
 
 ---
 
-## 📌 Project Summary
+## 🖥️ Live Dashboard
 
-> Analyzed **113,000+ orders** across **6 years (2015–2020)** from Ghana's e-commerce market to uncover revenue patterns, customer behavior, product performance, and delivery inefficiencies — built as a 3-tab interactive Power BI dashboard with Amazon's signature dark theme.
+🔗 **[View Interactive Dashboard on Power BI Service](#)** ← paste your link here
+
+---
+
+## 📊 Key Metrics (All Categories, 2015–2020)
 
 | Metric | Value |
-|--------|-------|
-| 💰 Total Revenue | **₵107.24 Million** |
-| 📦 Total Orders | **113,000+** |
-| 🔁 Return Rate | **27.01%** |
-| ⭐ Avg Product Rating | **2.73 / 5** |
-| 🚚 Avg Delivery Days | **9.53 days** |
-| 🛍️ Unique Products | **44** |
-| 📍 Locations Covered | **26 (across Ghana)** |
-| 👥 Customers (2020) | **25,179** (highest ever) |
-
----
-
-## 🎯 Business Questions Answered
-
-- Which product categories drive the most revenue — and which disappoint customers?
-- Why is the return rate 27%? What are the top return reasons?
-- How do customer segments (Bronze → Platinum) compare in revenue contribution?
-- How does delivery type (Express / Standard / Shipped from Abroad) affect customer satisfaction?
-- What is the total sales for Fashion category shipped from Abroad?
-- How does revenue compare month-over-month vs previous year?
-
----
-
-## 🗂️ Dashboard Pages
-
-### 1️⃣ Main Dashboard — Executive Overview
-High-level KPI summary for leadership — total revenue, orders, return rate, ratings, and trends.
-
-**Key Visuals:**
-- 4 KPI Cards → Total Revenue · Total Orders · Return Rate % · Avg Rating
-- Revenue by Year (Bar Chart)
-- Total Orders by Product Category (Donut Chart)
-- Revenue by Month (Line Chart)
-- Orders by Zone (Horizontal Bar Chart)
-- Top 5 Products Table
-
-**Slicers:** Year · Zone · Delivery Type · Product Category · Customer Gender
-
----
-
-### 2️⃣ Product Analysis — Category Deep Dive
-Analyze all product categories side by side — performance, delivery, and customer satisfaction.
-
-**Key Visuals:**
-- Revenue by Category
-- Customer Satisfaction by Category
-- Avg Delivery Days by Category
-- Delivery Type wise Orders (Donut)
-
-**Slicers:** Year · Product Category · Delivery Type
-
----
-
-### 3️⃣ Individual Product — Product Drill-Down
-Select any single product and see all its metrics update instantly.
-
-**Key Visuals:**
-- Product Selector (Dropdown Slicer)
-- KPI Cards → Revenue · Orders · Returns · Avg Rating
-- Revenue by Month (Line Chart)
-- Rating Distribution
-
----
-
-## 🛠️ Tools & Technologies
-
-| Layer | Tool | Purpose |
-|-------|------|---------|
-| **Data Storage** | MySQL 8.0 | Raw data + 7 advanced SQL queries |
-| **Data Cleaning** | Power Query (M Language) | Null handling, type fixes, Group By merge |
-| **Data Model** | Power BI Desktop | Star schema — Orders ↔ Customers ↔ Calendar |
-| **Calculations** | DAX | 10+ measures: Time Intelligence, CALCULATE, FILTER |
-| **Visualization** | Power BI Service | 3-tab interactive dashboard, published online |
-
----
-
-## 🗃️ Data Model
-
-```
-┌─────────────┐         ┌──────────────────┐         ┌──────────────┐
-│  Customers  │────────▶│      Orders      │◀────────│   Calendar   │
-│─────────────│  1:Many │──────────────────│  1:Many │──────────────│
-│ CustomerID  │         │ OrderID (PK)     │         │ Date (PK)    │
-│ Customer Age│         │ CustomerID (FK)  │         │ Year         │
-│ Customer    │         │ OrderDate        │         │ Month        │
-│   Gender    │         │ Delivery Date    │         │ Quarter      │
-└─────────────┘         │ Product Category │         └──────────────┘
-                        │ SubCategory      │
-                        │ Product          │
-                        │ Unit Price       │
-                        │ Sale Price       │
-                        │ Order Quantity   │
-                        │ Shipping Fee     │
-                        │ Delivery Type    │
-                        │ Zone / Location  │
-                        │ Status           │
-                        │ Reason           │
-                        │ Rating           │
-                        │ Delivery Days ✦  │
-                        └──────────────────┘
-✦ = Calculated Column (DAX)
-```
-
----
-
-## 📐 DAX Measures Used
-
-```dax
--- Total Revenue
-Total Revenue = SUM(Orders[Sale Price])
-
--- Total Orders
-Total Orders = DISTINCTCOUNT(Orders[OrderID])
-
--- Return Rate %
-Return Rate % =
-DIVIDE(
-    COUNTROWS(FILTER(Orders, Orders[Status] = "Returned")),
-    DISTINCTCOUNT(Orders[OrderID]),
-    0
-) * 100
-
--- Avg Rating
-Avg Rating = AVERAGE(Orders[Rating])
-
--- Avg Order Value
-Avg Order Value = DIVIDE([Total Revenue], [Total Orders], 0)
-
--- Avg Delivery Days (Delivered orders only)
-Avg Delivery Days =
-CALCULATE(
-    AVERAGE(Orders[Delivery Days]),
-    Orders[Status] = "Delivered"
-)
-
--- Unique Customers
-Unique Customers = DISTINCTCOUNT(Orders[CustomerID])
-
--- Fashion + Shipped from Abroad Sales
-Fashion Abroad Sales =
-CALCULATE(
-    [Total Revenue],
-    FILTER(Orders, Orders[Product Category] = "Fashion"),
-    FILTER(Orders, Orders[Delivery Type] = "Shipped from Abroad")
-)
--- Result: ₵4 Million
-
--- Previous Year Sales (Time Intelligence)
-Previous Year Sales =
-CALCULATE(
-    [Total Revenue],
-    SAMEPERIODLASTYEAR(Calendar[Date])
-)
-```
-
----
-
-## 📊 Calculated Columns
-
-```dax
--- Delivery Duration
-Delivery Days = DATEDIFF(Orders[OrderDate], Orders[Delivery Date], DAY)
-
--- Customer Loyalty Tier
-Customer Category =
-IF(Orders[Revenue per Customer] >= 5000, "Platinum",
-IF(Orders[Revenue per Customer] >= 2000, "Gold",
-IF(Orders[Revenue per Customer] >= 500, "Silver", "Bronze")))
-```
+|---|---|
+| Total Revenue | ₵107 Million |
+| Total Orders | 1,13,000 |
+| Total Customers | 1,13,000 |
+| Avg Customer Rating | 2.73 / 5 |
+| Returned Orders | 31K (27%) |
+| Avg Delivery Days | 9.53 days |
+| Avg Unit Price | ₵297.04 |
 
 ---
 
 ## 💡 Key Insights
 
-### 1. Return Rate is a Description Problem
-> 27% of all orders are returned. The #1 reason is **"Description Mismatch"** — not delivery delays or defects. This is a product listing accuracy issue.
+### 1. Revenue is concentrated in 2 categories
+**Phones & Tablets (₵39M)** and **Electronics (₵33M)** together drive **67% of total revenue** despite having fewer customers than Health & Beauty.
 
-### 2. 2020 Was a Breakout Year
-> Unique customers jumped to **25,179 in 2020** — the highest in 6 years — indicating strong market growth.
+### 2. Return rate is a listing problem, not a delivery problem
+At **27% return rate**, the top reason across all categories is **"Description Mismatch"** — not late delivery, not defective products. This signals a product listing accuracy issue.
 
-### 3. Platinum Customers = Hidden Revenue Engine
-> Only **~3K Platinum customers** generate revenue comparable to **87K Bronze customers**. Retaining high-value customers is priority #1.
+### 3. Greater Accra + Ashanti = 47% of all revenue
+These 2 regions dominate sales (₵27M + ₵23M) while 20+ other locations contribute less than ₵1M each.
 
-### 4. Express Delivery = Higher Satisfaction
-> Express delivery = **3.5 days avg**. Standard delivery = **10 days**, same cost. Customers are dissatisfied — pricing strategy needs review.
+### 4. High price does not guarantee high satisfaction
+Electronics has the highest average sale price (₵3.2K per order) but customer satisfaction stays moderate.
 
-### 5. Fashion + Shipped from Abroad = ₵4M Revenue
-> This niche cross-segment generates significant revenue and deserves targeted promotions.
+### 5. Order volume accelerating
+Orders grew from ~18K/year (2015–18) to **25K in 2020**, with monthly revenue steady at ₵1.3–1.5M.
 
 ---
 
-## 📁 Repository Structure
+## 🏗️ Project Architecture
 
 ```
-amazon-ghana-ecommerce-analytics/
-│
-├── 📊 dashboard/
-│   └── Amazon_Ecommerce_Dashboard_Shivam_Gupta.pbix
-│
-├── 🗄️ sql/
-│   └── queries.sql
-│
-├── 📂 data/
-│   └── Ecommerce Dataset.xlsx
-│
-├── 📑 docs/
-│   ├── E-Commerce_Document_by_Shivam_Gupta.docx
-│   └── E-COMMERCE_ANALYSIS_by_Shivam_Gupta.pptx
-│
-├── 🖼️ assets/
-│   ├── main_dashboard.png
-│   ├── product_analysis.png
-│   └── individual_product.png
-│
-└── 📄 README.md
+Raw Excel Data (Orders + Customers)
+        ↓
+Power Query Editor (Data Cleaning)
+        ↓
+Data Model (Star Schema: Customers ↔ Orders ↔ Date Table)
+        ↓
+DAX Measures (15+ measures)
+        ↓
+3-Tab Interactive Dashboard (Power BI Desktop)
+        ↓
+Published to Power BI Service (Live Link)
+        ↓
+SQL File (7 Advanced Queries)
 ```
 
 ---
 
-## 🚀 How to Use
+## 🧹 Data Cleaning (Power Query)
 
-### View the Live Dashboard
-Click **[🔗 Live Dashboard](https://app.powerbi.com/YOUR_LINK_HERE)** — no login required.
+| Issue Found | How Fixed |
+|---|---|
+| 5 phantom blank columns (Col18–Col22) | Removed via Remove Columns |
+| Blank rows (all nulls, no OrderID) | Home → Remove Blank Rows |
+| 1 missing Product Category | Identified via SubCategory → filled "Health and beauty" |
+| 8 missing Unit Price + Order Quantity | Group By + Merge → product-wise average price, Qty = 1 |
+| 1 missing Customer Gender | Labeled "Unknown" to preserve order record |
+| Data type mismatches | Dates → Date, IDs → Whole Number, Prices → Decimal |
 
-### Run Locally in Power BI Desktop
-1. Download `dashboard/Amazon_Ecommerce_Dashboard_Shivam_Gupta.pbix`
-2. Open with **Power BI Desktop** (free — download from Microsoft)
-3. If data doesn't load → `Transform Data → Data Source Settings` → update file path
+---
 
-### Explore the SQL Queries
-```sql
-CREATE DATABASE amazon_ecommerce;
-USE amazon_ecommerce;
--- Import via MySQL Workbench → Table Data Import Wizard
--- Then run sql/queries.sql
+## 📐 Data Model
+
+```
+Customers (1) ──────── Orders (Many)
+[CustomerID]           [CustomerID]
+
+Date Table (1) ──────── Orders (Many)
+[Date]                 [OrderDate]
+```
+
+- **Relationship type:** Many-to-One (Orders → Customers)
+- **Schema:** Star Schema
+- **Cross filter direction:** Single
+
+---
+
+## 📋 Key DAX Measures
+
+```dax
+-- Total Revenue
+Total Revenue = SUM(Orders[Sale Price])
+
+-- Avg Delivery Days (Delivered orders only)
+Avg Delivery Days =
+CALCULATE(
+    AVERAGEX(Orders, DATEDIFF(Orders[OrderDate], Orders[Delivery Date], DAY)),
+    Orders[Status] = "Delivered"
+)
+
+-- Return Rate
+Return Rate = DIVIDE([Returned Products], [Total Orders], 0)
+
+-- Fashion + Shipped from Abroad Sales
+Fashion Abroad Sales =
+CALCULATE(
+    [Total Revenue],
+    Orders[Product Category] = "Fashion",
+    Orders[Delivery Type] = "Shipped from Abroad"
+)
+
+-- MoM Growth %
+MoM Growth % =
+VAR CurrentMonth = [Total Revenue]
+VAR PrevMonth = CALCULATE([Total Revenue], DATEADD('Date'[Date], -1, MONTH))
+RETURN DIVIDE(CurrentMonth - PrevMonth, PrevMonth, 0) * 100
 ```
 
 ---
 
-## 📊 Recommendations
+## 🗄️ SQL Queries (Advanced)
 
-| Priority | Area | Recommendation |
-|----------|------|----------------|
-| 🔴 High | Returns | Fix product descriptions — 27% return rate from mismatch |
-| 🔴 High | Customers | Convert Bronze → Silver with targeted discounts |
-| 🟡 Medium | Delivery | Differentiate pricing: Express vs Standard (same cost, 3x speed difference) |
-| 🟡 Medium | High-Value | Retention program for 3K Platinum customers |
-| 🟢 Low | International | Promote Fashion + Shipped from Abroad (₵4M opportunity) |
+All 7 queries → [`Amazon_Ecommerce_SQL_Queries.sql`](Amazon_Ecommerce_SQL_Queries.sql)
+
+| # | Question | Concepts Used |
+|---|---|---|
+| Q1 | Top 5 customers by composite score | CTE, Window Functions, Min-Max Normalization |
+| Q2 | Month-over-month revenue growth rate | CTE, LAG(), DATE_FORMAT |
+| Q3 | Rolling 3-month average revenue by category | ROWS BETWEEN 2 PRECEDING |
+| Q4 | 15% discount for customers with ≥10 orders | UPDATE, Subquery JOIN |
+| Q5 | Avg days between consecutive orders | LAG(), DATEDIFF, CTE chain |
+| Q6 | Customers with revenue >30% above average | CROSS JOIN, percentage calc |
+| Q7 | Top 3 categories — highest YoY sales increase | LAG(), YEAR(), ORDER BY growth |
 
 ---
 
-## 👤 About
+## 📂 Repository Structure
+
+```
+Amazon-Ecommerce-Analytics/
+│
+├── README.md
+├── Amazon_Ecommerce_Dashboard.pbix
+├── Amazon_Ecommerce_SQL_Queries.sql
+├── Amazon_Project_Presentation.pptx
+│
+└── screenshots/
+    ├── main_tab.png
+    ├── product_tab.png
+    └── individual_product_tab.png
+```
+
+---
+
+## 🎯 Dashboard Tab Guide
+
+| Tab | POC | Slicers | Key Visuals |
+|---|---|---|---|
+| Main Dashboard | Senior Leadership | Year, Product Category | Revenue, Orders, Customers, Rating, Returns, Delivery Days, Trend charts |
+| Product Analysis | Category Managers | Product, Gender, Delivery Type, Category | Delivery days by category, Satisfaction distribution, Orders by category |
+| Individual Product | Product Owners | Product (search) | Revenue, Avg Price, Quantity, Delivery, Rating gauge, Revenue by location |
+
+---
+
+## 📈 Strategic Recommendations
+
+1. **Loyalty Program** — Bronze / Silver / Gold tiers using composite score (SQL Q1)
+2. **Targeted Discounts** — High-price, low-rating products (Electronics <2.5 rating first)
+3. **Fix 27% Return Rate** — Audit listings, add size guides, detailed spec sheets
+4. **Regional Marketing** — Double down on Greater Accra + Ashanti (47% of revenue)
+
+---
+
+## 🛠️ Tools Used
+
+`Power BI Desktop` · `Power Query (M Language)` · `DAX` · `MySQL` · `Power BI Service` · `PowerPoint`
+
+---
+
+## 👨‍💻 About the Author
 
 **Shivam Gupta**
-Data Analyst | Power BI · SQL · DAX · Power Query
+Data Analytics Student @ Newton School | Team Leader @ Experts of Deals
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shivam-gupta-6b72b5238)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/Shivamgupta6388)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/your-profile)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/Shivamgupta6388)
 
 ---
 
-<div align="center">
-
-*Built as part of Newton School — Data Science Professional Certificate*
-
-⭐ **Star this repo if you found it helpful!**
-
-</div>
+*⭐ If this project helped you, please give it a star!*
